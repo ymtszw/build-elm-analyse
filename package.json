@@ -17,12 +17,12 @@
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ymtszw/atom-build-elm-analyse.git"
+    "url": "git+https://github.com/ymtszw/build-elm-analyse.git"
   },
   "author": "ymtszw",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/ymtszw/atom-build-elm-analyse/issues"
+    "url": "https://github.com/ymtszw/build-elm-analyse/issues"
   },
-  "homepage": "https://github.com/ymtszw/atom-build-elm-analyse#readme"
+  "homepage": "https://github.com/ymtszw/build-elm-analyse#readme"
 }
