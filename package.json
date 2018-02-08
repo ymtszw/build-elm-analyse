@@ -1,5 +1,5 @@
 {
-  "name": "atom-build-elm-analyse",
+  "name": "build-elm-analyse",
   "version": "0.0.1",
   "description": "Run elm-analyse using atom-build",
   "engines": {
