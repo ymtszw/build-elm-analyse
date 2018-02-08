@@ -1,0 +1,30 @@
+{
+  "name": "atom-build-elm-analyse",
+  "version": "0.0.1",
+  "description": "Run elm-analyse using atom-build",
+  "engines": {
+    "atom": "^1.0.0"
+  },
+  "main": "index.js",
+  "providedServices": {
+    "builder": {
+      "description": "Run elm-analyse",
+      "versions": {
+        "2.0.0": "provideBuilder"
+      }
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ymtszw/atom-build-elm-analyse.git"
+  },
+  "author": "ymtszw",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/ymtszw/atom-build-elm-analyse/issues"
+  },
+  "homepage": "https://github.com/ymtszw/atom-build-elm-analyse#readme"
+}
