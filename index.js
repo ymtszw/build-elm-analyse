@@ -72,12 +72,11 @@ export function _singleMessage(type, file, desc, [[l1, c1], [l2, c2]]) {
     file: file,
     message: `${desc} (${type})`,
     url: `https://stil4m.github.io/elm-analyse/#/messages/${type}`,
-    // Indexes are one-based
-    line: l1 + 1,
-    line_end: l2 + 1,
-    col: c1 + 1,
-    col_end: c2 + 1,
-  }
+    line: l1,
+    line_end: l2,
+    col: c1,
+    col_end: c2
+  };
 }
 
 export function _duplicateByRanges(type, file, desc, ranges) {
