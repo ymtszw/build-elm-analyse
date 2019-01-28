@@ -57,8 +57,7 @@ export function provideBuilder() {
             }
           });
         }
-      }
-
+      };
       return [
         {
           // The provider doc states it requires `cmd` but actually it is `exec`.
@@ -68,7 +67,7 @@ export function provideBuilder() {
           sh: true,
           cwd: this.cwd,
           functionMatch: functionMatch,
-          atomCommandName: 'build:elm-analyse',
+          atomCommandName: "build:elm-analyse"
         }
       ];
     }
