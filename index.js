@@ -17,30 +17,56 @@ export function provideBuilder() {
     }
 
     settings() {
+      // Redirecting analysis into temporary file,
+      // since large output of child_process.spawn() will be truncated
+      // and there is no simple way to collect remaining buffers.
+      const tmpResultPath = path.resolve(
+        this.cwd,
+        ".build-elm-analyse-result.json"
+      );
       const functionMatch = function(output) {
         try {
-          const result = JSON.parse(_lastline(output))
-          const nestedLintMessages = result.messages.map(function(m) { return _formatResult(m) })
-          const lintMessages = [].concat(...nestedLintMessages)
-          return lintMessages
+          const resultJson = fs.readFileSync(tmpResultPath, {
+            encoding: "utf8"
+          });
+          const result = JSON.parse(_lastline(resultJson));
+          const nestedLintMessages = result.messages.map(function(m) {
+            return _formatResult(m);
+          });
+          const lintMessages = [].concat(...nestedLintMessages);
+          return lintMessages;
         } catch (e) {
           console.log(e);
-          atom.notifications.addError("atom-build-elm-analyse", {
+          atom.notifications.addError("build-elm-analyse", {
             description: output,
             dismissable: true,
             detail: e.message,
-            stack: e.stack,
-          })
-          return []
+            stack: e.stack
+          });
+          return [];
+        } finally {
+          fs.unlink(tmpResultPath, function(possiblyErr) {
+            if (possiblyErr) {
+              console.log(possiblyErr);
+              atom.notifications.addError("build-elm-analyse", {
+                description: `Failed to remove elm-analyse result file (${tmpResultPath}). Please manually remove it.`,
+                dismissable: true,
+                detail: possiblyErr.message,
+                stack: possiblyErr.stack
+              });
+            }
+          });
         }
       }
 
       return [
         {
-          name: 'Elm: elm-analyse',
-          exec: 'elm-analyse',
-          args: [ '--format=json' ],
-          sh: false,
+          // The provider doc states it requires `cmd` but actually it is `exec`.
+          // https://github.com/noseglid/atom-build/issues/570
+          exec: `elm-analyse --format=json > ${tmpResultPath}`,
+          name: "Elm: elm-analyse",
+          sh: true,
+          cwd: this.cwd,
           functionMatch: functionMatch,
           atomCommandName: 'build:elm-analyse',
         }
