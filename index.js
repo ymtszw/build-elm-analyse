@@ -13,7 +13,7 @@ export function provideBuilder() {
     }
 
     isEligible() {
-      return fs.existsSync(`${this.cwd}/elm-package.json`)
+      return fs.existsSync(path.resolve(this.cwd, "elm.json"));
     }
 
     settings() {
