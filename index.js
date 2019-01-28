@@ -1,15 +1,15 @@
-'use babel'
+"use babel";
 
-import fs from 'fs'
+import fs from "fs";
 
 export function provideBuilder() {
   return class ElmAnalyseBuilder {
     constructor(cwd) {
-      this.cwd = cwd
+      this.cwd = cwd;
     }
 
     getNiceName() {
-      return 'Elm'
+      return "Elm";
     }
 
     isEligible() {
@@ -44,31 +44,31 @@ export function provideBuilder() {
           functionMatch: functionMatch,
           atomCommandName: 'build:elm-analyse',
         }
-      ]
+      ];
     }
-  }
+  };
 }
 
 export function _lastline(stdout) {
-  const lines = stdout.trim().split("\n")
-  return lines[lines.length - 1]
+  const lines = stdout.trim().split("\n");
+  return lines[lines.length - 1];
 }
 
-export function _formatResult({file, type, data}) {
+export function _formatResult({ file, type, data }) {
   if (data.properties.range) {
-    const [l1, c1, l2, c2] = data.properties.range
-    return [ _singleMessage(type, file, data.description, [[l1, c1], [l2, c2]]) ]
+    const [l1, c1, l2, c2] = data.properties.range;
+    return [_singleMessage(type, file, data.description, [[l1, c1], [l2, c2]])];
   } else if (data.properties.ranges) {
-    const ranges = data.properties.ranges
-    return _duplicateByRanges(type, file, data.description, ranges)
+    const ranges = data.properties.ranges;
+    return _duplicateByRanges(type, file, data.description, ranges);
   } else {
-    return [ _singleMessage(type, file, data.description, [[0, 0], [0, 0]]) ]
+    return [_singleMessage(type, file, data.description, [[0, 0], [0, 0]])];
   }
 }
 
 export function _singleMessage(type, file, desc, [[l1, c1], [l2, c2]]) {
   return {
-    type: 'warning',
+    type: "warning",
     file: file,
     message: `${desc} (${type})`,
     url: `https://stil4m.github.io/elm-analyse/#/messages/${type}`,
@@ -81,5 +81,7 @@ export function _singleMessage(type, file, desc, [[l1, c1], [l2, c2]]) {
 }
 
 export function _duplicateByRanges(type, file, desc, ranges) {
-  ranges.map(function([l1, c1, l2, c2]) { _singleMessage(type, file, desc, [[l1, c1], [l2, c2]]) })
+  ranges.map(function([l1, c1, l2, c2]) {
+    _singleMessage(type, file, desc, [[l1, c1], [l2, c2]]);
+  });
 }
