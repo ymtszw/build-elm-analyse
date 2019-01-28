@@ -13,7 +13,7 @@ Depends on:
 [elm-analyse] must be installed globally.
 
 Working directory is always current project root.
-Both `elm-package.json` and `elm-analyse.json` must be found there.
+Both `elm.json` and `elm-analyse.json` must be found there.
 
 ## Usage
 
